@@ -1,6 +1,6 @@
 # Bip Task - Luis Phelipe
 
-Esse e apenas o basico, imeplementei o que achei mais dificil, e consegui fazer funcionar, agora vou implementar o backend referente ao projeto especifico, listado abaixo.
+Esse e apenas o basico, implementei o que achei mais dificil, e consegui fazer funcionar, agora vou implementar o backend referente ao projeto especifico, listado abaixo.
    
 ### TODO
    
