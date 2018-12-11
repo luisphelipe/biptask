@@ -2,9 +2,9 @@
 
 Esse e apenas o basico, imeplementei o que achei mais dificil, e consegui fazer funcionar, agora vou implementar o backend referente ao projeto especifico, listado abaixo.
    
-### TODO:   
+### TODO
    
-Models:
+Models:   
     - Tags: store and retrieve tags by users   
     - Messages: store messages from past queries   
     - TwitterQuery: search queries based on user tags   
@@ -13,6 +13,6 @@ Models:
 Controllers:     
     - ...  
    
-### DONE:
+### DONE
 Controllers:   
     - Home: make queries and return results without saving them to db (MVP)
