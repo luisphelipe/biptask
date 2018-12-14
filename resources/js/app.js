@@ -20,7 +20,8 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('tag-form', require('./components/tagForm.vue'));
+Vue.component('twitter-post', require('./components/twitterPost.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,5 +30,49 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        messages: [],
+        tags: [],
+        url: document.querySelector('meta[name="app-url"]').getAttribute('content')
+    },
+    methods: {
+        addTag(tag) {
+            this.tags.push(tag);
+        },
+        makeQuery() {
+            axios
+            .get(this.url + '/query')
+            .then(response => {
+                console.log(response.data);
+                this.messages = response.data.concat(this.messages);
+            }); 
+        },
+        delTag(index) {
+            axios
+            .delete(this.url + '/tag/' + this.tags[index].id)
+            .then(response => {
+                console.log(response.data);
+            }); 
+
+            this.tags.splice(index, 1);
+        },
+        delPost(index) {
+            this.messages.splice(index, 1);
+        }
+    },
+    mounted() {
+        axios
+        .get(this.url + '/message')
+        .then(response => {
+            this.messages = this.messages.concat(response.data);
+        });
+
+        axios
+        .get(this.url + '/tag')
+        .then(response => {
+            this.tags= this.tags.concat(response.data);
+            console.log(this.tags)
+        });
+    }
 });

@@ -1,45 +1,39 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>{{ env('app.name') }}</title>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Tags</div>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    </head>
-    <body>
-        <main class="d-flex flex-column align-items-center justify-content-center">
-            <div class="container d-flex justify-content-center align-items-center m-4">
-                <form class="form-inline" action="/show" method="POST">
-                    @csrf
+                <div class="card-body">
+                    <tag-form v-on:add-tag="addTag($event)"></tag-form>
 
-                    <div class="form-group">
-                        <label class="mx-2" for="query">Hashtags: </label>
-                        <input class="mx-2 form-control" type="text" name="query" id="query" placeholder="Ex: #fiat #carronovo">
-                        <button class="mx-2 btn btn-sm" type="submit"> Procurar</button>
-                        <a href="/"> Limpar</a>
-                    </div>
-                </form>
-            </div>
-            <div class="container">
-                @if (isset($messages))
-                    @foreach ($messages as $message)
-                        <div class="card m-2 border">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $message['user']}} 
-                                    @if (!empty($message['url']))
-                                        <a href="{{ $message['url'] }}">link</a>
-                                    @endif
-                                </h4>
-                                <p class="card-text">
-                                    {{ $message['text'] }}
-                                </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex flex-wrap">
+                            <div class="card py-2 px-3 mr-1" v-for="(tag, index) in tags" :key="tag.id">
+                                <div class="d-flex align-items-center">
+                                    <span>
+                                        @{{ tag.body }}
+                                    </span>
+
+                                    <img src="/svg/close.svg" alt="delete" class="ml-1 p-1" @click="delTag(index)" style="height: 15px">
+                                </div>
                             </div>
                         </div>
-                    @endforeach
-                @endif
+
+                        <div>
+                            <button v-show="tags.length > 0" class="btn mt-2" @click="makeQuery">Procurar mensagens recentes (2segs)</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-       </main>
-    </body>
-</html>
+
+            <h2 class="mt-3 text-center">Ultimas mensagens pesquisadas...</h2>
+            <twitter-post v-for="(message, index) in messages" :key="message.id" :postid="message.id" :name="message.name" :body="message.body" :link="message.link" :index="index" v-on:del-post="delPost($event)"></twitter-post>
+
+        </div>
+    </div>
+</div>
+@endsection

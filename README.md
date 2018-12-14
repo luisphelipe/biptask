@@ -1,18 +1,14 @@
 # Bip Task - Luis Phelipe
+   
+## TODO
+   
+1. Frontend consumindo o backend por requests
 
-Esse e apenas o basico, implementei o que achei mais dificil, e consegui fazer funcionar, agora vou implementar o backend referente ao projeto especifico, listado abaixo.
+## Considerações
    
-### TODO
-   
-Models:   
-    - Tags: store and retrieve tags by users   
-    - Messages: store messages from past queries   
-    - TwitterQuery: search queries based on user tags   
-    - TwitterToken: model to manage connection to Twitter API   
-   
-Controllers:     
-    - ...  
-   
-### DONE
-Controllers:   
-    - Home: make queries and return results without saving them to db (MVP)
+Há muito espaço para melhora, vou listar algumas das coisas que me vem a cabeça    
+1. Permitir o usuario ter controle dos parametros que a API do twitter oferece, como linguagem e regiao.
+2. Implementar Model/Migration para gerar e retornar JWT, caso o ultimo esteja expirado.
+3. Fazer uma melhor separacao do view em componentes de vue.js    
+4. Deifinir os nomes das coisas e os mesmos no backend e frontend
+5. ...
